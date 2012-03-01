@@ -2,6 +2,8 @@
 
 #include "graph-api.h"
 
+// This is triggered when there is not enough space on the heap. In our
+// simulation, that is when num_objects equals max_objects.
 void MSGraphUtil :: TriggerGC() {
   for (int i = 0; i < roots.size(); i++) {
     DFSMark(roots[i]);
@@ -9,12 +11,17 @@ void MSGraphUtil :: TriggerGC() {
   Sweep(first, NULL);
 }
 
+// Simple Depth First Search to mark the nodes.
 void MSGraphUtil :: DFSMark (Object* root) {
   if (root == NULL) return;
   root->seen = true;
   DFSMark(root->child);
 }
 
+// Sweeping the entire heap. We traverse the linked list in our simulation,
+// resetting the "seen" flag then and there. Any object that does not have
+// the seen flag set will be removed. Basic deletion of elements from a linked
+// list.
 void MSGraphUtil :: Sweep (Object* current, Object* prev) {
   if (current == NULL) return;
 
@@ -47,6 +54,7 @@ void MSGraphUtil :: Sweep (Object* current, Object* prev) {
   }
 }
 
+// Creating a new root item. 
 void MSGraphUtil :: NewReference(const string& desc) {
   if (num_objects == max_objects) {
     TriggerGC();
@@ -63,6 +71,7 @@ void MSGraphUtil :: NewReference(const string& desc) {
   }
 }
 
+// New object that would be pointed to by an existing pointer.
 void MSGraphUtil :: New(const string& desc, Object* parent) {
   if (num_objects == max_objects) {
     TriggerGC();
@@ -79,6 +88,7 @@ void MSGraphUtil :: New(const string& desc, Object* parent) {
   }
 }
 
+// Deleting root items for when they fall out of scope.
 void MSGraphUtil :: EndLifetime(Object* obj) {
   int pos = -1;
   for (int i = 0; i < roots.size(); i++) {

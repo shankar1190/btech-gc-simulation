@@ -1,4 +1,10 @@
 // Author: Shankar, shankar1190@gmail.com
+// Class Object: This is a mock object and a node in our simulation graph.
+// Any object that is allocated is in the form of this node in our
+// simulation. We have a class MSGraphUtil that has the basic utilities
+// of the standard Mark and Sweep. Roots are maintained in a vector
+// and all the allocated objects are manintained on a linked list. "Sweeping"
+// is done by traversing that linked list.
 
 #ifndef GRAPH_API
 #define GRAPH_API
