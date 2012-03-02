@@ -2,6 +2,13 @@
 
 #include "graph-api.h"
 
+// default constructor
+MSGraphUtil :: MSGraphUtil() {
+  first = NULL;
+  last = NULL;
+  num_objects = 0;
+}
+
 // This is triggered when there is not enough space on the heap. In our
 // simulation, that is when num_objects equals max_objects.
 void MSGraphUtil :: TriggerGC() {
@@ -98,4 +105,17 @@ void MSGraphUtil :: EndLifetime(Object* obj) {
     }
   }
   if (pos != -1) roots.erase(roots.begin() + pos);
+}
+
+
+// The code below is the Stop-Copy GC. The util function definitions
+
+// Default constructor
+StopCopyUtil :: StopCopyUtil() {
+  heap1_objects = 0;
+  heap2_objects = 0;
+  heap1_first = NULL;
+  heap2_first = NULL;
+  heap1_last = NULL;
+  heap2_last = NULL;
 }

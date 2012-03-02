@@ -17,6 +17,9 @@ using namespace std;
 
 const int max_objects = 100;
 
+const int heap1_max = 50;
+const int heap2_max = 50;
+
 class Object {
  public:
   bool seen;
@@ -49,4 +52,24 @@ class MSGraphUtil {
   void EndLifetime(Object* reference);
   void TriggerGC();
 };
+
+class StopCopyUtil {
+ public:
+  StopCopyUtil();
+  vector <Object*> roots1;
+  vector <Object*> roots2;
+  int heap1_objects;
+  int heap2_objects;
+  Object* heap1_first;
+  Object* heap1_last;
+  Object* heap2_first;
+  Object* heap2_last;
+
+  void FlushHeap1();
+  void FlushHeap2();
+  void Copy1to2();
+  void Copy2to1();
+  void TriggerGC();
+};
+
 #endif // GRAPH_API
