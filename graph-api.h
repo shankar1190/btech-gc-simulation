@@ -6,12 +6,22 @@
 // and all the allocated objects are manintained on a linked list. "Sweeping"
 // is done by traversing that linked list.
 
+// TODO (Neeraja and Radhika!): Very Important. Rewrite generetic utilities
+// outside the MSGraphUtil class, viz., New(), NewReference(), EndLifetime().
+
+
 #ifndef GRAPH_API
 #define GRAPH_API
 
 #include <string>
 #include <vector>
+#include <cprocess>
+#include <cctype>
 #include <iostream>
+
+// Utility Macros. Not a good idea to define macros and all, but I still
+// do it cos I'm a bad-ass.
+#define CHECK(x) if(!(x)){cerr<<"Check not satisfied! Aborting...\n";exit(1);}
 
 using namespace std;
 

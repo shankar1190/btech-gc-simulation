@@ -119,3 +119,28 @@ StopCopyUtil :: StopCopyUtil() {
   heap1_last = NULL;
   heap2_last = NULL;
 }
+
+// delete all elements from a linked list.
+// TODO: Figure out a more elegant way to do this. Maybe we have to change the
+// implementation of Stop-Copy completely.
+void FlushHeap1() {
+  Object* delnode = heap1_first;
+  Object* temp = delnode;
+  while (temp != NULL) {
+    temp = temp->next;
+    delete delnode;
+    delnode = temp;
+  }
+  heap1_first = NULL;
+}
+
+void FlushHeap2() {
+  Object* delnode = heap2_first;
+  Object* temp = delnode;
+  while (temp != NULL) {
+    temp = temp->next;
+    delete delnode;
+    delnode = temp;
+  }
+  heap1_first = NULL;
+}
