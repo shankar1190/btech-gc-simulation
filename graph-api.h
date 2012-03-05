@@ -35,15 +35,22 @@ class Object {
   bool seen;
   Object* next;
   Object* child;
+  Object* first;
+  Object* last;
   string desc;
   Object() {
     next = NULL;
     child = NULL;
+    first = NULL;
+    last = NULL;
+    
     desc = "";
   }
   Object (const string& description) {
     next = NULL;
     child = NULL;
+    first = NULL;
+    last = NULL;
     desc = description;
   }
 };
@@ -65,8 +72,6 @@ class MSGraphUtil {
   MSGraphUtil(); 
   int num_objects;
   vector <Object*> roots;
-  Object* first;
-  Object* last;
   void DFSMark(Object* root);
   void Sweep(Object* current, Object* prev);
   void New(const string& desc, Object* parent);
@@ -82,10 +87,10 @@ class StopCopyUtil {
   vector <SCObject*> inactive;
   int heap1_objects;
   int heap2_objects;
-  SCObject* heap1_first;
-  SCObject* heap1_last;
-  SCObject* heap2_first;
-  SCObject* heap2_last;
+  //SCObject* heap1_first;
+  //SCObject* heap1_last;
+  //SCObject* heap2_first;
+  //SCObject* heap2_last;
 
   void FlushHeap(vector <SCObject*> &v);//Cant we delete the elements as they're getting copied
   //void Copy1to2();
