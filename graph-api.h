@@ -78,8 +78,8 @@ class MSGraphUtil {
 class StopCopyUtil {
  public:
   StopCopyUtil();
-  vector <SCObject*> roots1;
-  vector <SCObject*> roots2;
+  vector <SCObject*> active;
+  vector <SCObject*> inactive;
   int heap1_objects;
   int heap2_objects;
   SCObject* heap1_first;
