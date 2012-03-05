@@ -123,18 +123,23 @@ StopCopyUtil :: StopCopyUtil() {
 // delete all elements from a linked list.
 // TODO: Figure out a more elegant way to do this. Maybe we have to change the
 // implementation of Stop-Copy completely.
-void FlushHeap1() {
-  Object* delnode = heap1_first;
+int FlushHeap(vector <SCObject*> & v) {
+  if(!v.empty())
+  {
+    v.erase(v.begin(), v.begin()+v.size());//this works, verified on dev-cpp
+  }
+  return v.empty();
+  /*Object* delnode = heap1_first;
   Object* temp = delnode;
   while (temp != NULL) {
     temp = temp->next;
     delete delnode;
     delnode = temp;
   }
-  heap1_first = NULL;
+  heap1_first = NULL;*/
 }
 
-void FlushHeap2() {
+/*void FlushHeap2() {
   Object* delnode = heap2_first;
   Object* temp = delnode;
   while (temp != NULL) {
@@ -143,4 +148,33 @@ void FlushHeap2() {
     delnode = temp;
   }
   heap1_first = NULL;
+}*/
+
+void Copy(vector<SCObject*> & from, vector <SCObject*> & to)
+{
+  int r=1;
+  if(!to.empty())
+  {
+    r=FlushHeap(to);
+  }
+  if(r)
+  {
+    SCObject* temp=new SCObject;
+    for (int i=0;i<from.size();i++)
+    {
+        temp=from.at(i);
+        to.push_back(temp);      
+    }
+    from.erase(from.begin(),from.begin()+from.size());
+  }
+}
+
+void CallCopy()
+{
+  if(heap1_objects==max)
+     Copy(active, inactive);
+  if(heap2_objects==max)
+     Copy(inactive, active);
+}
+  
 }
