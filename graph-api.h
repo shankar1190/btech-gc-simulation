@@ -88,7 +88,7 @@ class StopCopyUtil {
   SCObject* heap2_last;
 
   void FlushHeap1();
-  void FlushHeap2();
+  void FlushHeap2();// Are these two methods necessary
   void Copy1to2();
   void Copy2to1();
   void TriggerGC();
