@@ -48,6 +48,18 @@ class Object {
   }
 };
 
+//Stop Copy works on a distinction between live and dead objects
+//Define a child class of objects with an extra field to indicate if the object is alive or dead.
+//As such, i have no idea how thats decided. We could figure that out later( a system call that 
+//could give some info on the scope of the object or something)
+class SCObject : public Object
+{
+   public:
+   bool alive;
+   SCObject() {
+    alive=1;
+   }
+}
 class MSGraphUtil {
  public:
   MSGraphUtil(); 
@@ -66,14 +78,14 @@ class MSGraphUtil {
 class StopCopyUtil {
  public:
   StopCopyUtil();
-  vector <Object*> roots1;
-  vector <Object*> roots2;
+  vector <SCObject*> roots1;
+  vector <SCObject*> roots2;
   int heap1_objects;
   int heap2_objects;
-  Object* heap1_first;
-  Object* heap1_last;
-  Object* heap2_first;
-  Object* heap2_last;
+  SCObject* heap1_first;
+  SCObject* heap1_last;
+  SCObject* heap2_first;
+  SCObject* heap2_last;
 
   void FlushHeap1();
   void FlushHeap2();
