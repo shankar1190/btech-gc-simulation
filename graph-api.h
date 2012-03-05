@@ -87,13 +87,11 @@ class StopCopyUtil {
   SCObject* heap2_first;
   SCObject* heap2_last;
 
-  void FlushHeap(vector <SCObject*> &v);
+  void FlushHeap(vector <SCObject*> &v);//Cant we delete the elements as they're getting copied
   //void Copy1to2();
   //void Copy2to1();
   void Copy(vector <SCObject*> &from, vector <SCObject*> &to);
   //A function to call copy depending on which region is exhausted.
-  //Oh ya, now i see why the flush method is needed, but it could be only one
-  //Pass the concerned vector as a reference parameter
   void CallCopy();
   void TriggerGC();
 };
