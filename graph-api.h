@@ -89,8 +89,9 @@ class StopCopyUtil {
 
   void FlushHeap1();
   void FlushHeap2();// Are these two methods necessary
-  void Copy1to2();
-  void Copy2to1();
+  //void Copy1to2();
+  //void Copy2to1();
+  void Copy(vector <SCObject*> &from, vector <SCObject*> &to);
   void TriggerGC();
 };
 
