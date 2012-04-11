@@ -189,6 +189,17 @@ void StopCopyUtil :: NewReference(const string& desc, int ind) {
 
 // New object that would be pointed to by an existing pointer.
 void StopCopyUtil :: New(const string& desc, SCObject* parent, int ind) {
+  int num; int max=50;
+  if(ind==1)
+  {
+    num=heap1_objects;
+    last=heap1_last;
+  }
+  if(ind==2)
+  {
+    num=heap2_objects;
+    last=heap2_last;
+  }
   if (num == max) {
     TriggerGC();
   }
@@ -199,6 +210,16 @@ void StopCopyUtil :: New(const string& desc, SCObject* parent, int ind) {
     parent->child = obj;
     last->next = obj;
     obj = last;
+    if(ind==1)
+    {
+      active.erase(active.begin(),active.end());
+      active.insert(heap1_first);
+    }
+    if(ind==2)
+    {
+      inactive.erase(inactive.begin(),inactive.end());
+      inactive.insert(heap2_first);
+    }
   } else {
     cout << "Error! Unable to allocate memory!\n";
   }
@@ -235,7 +256,7 @@ int FlushHeap(vector <SCObject*> & v) {
   heap1_first = NULL;
 }*/
 
-void Copy(vector<SCObject*> & from, vector <SCObject*> & to)
+void Copy(vector<SCObject*> & from, vector <SCObject*> & to,SCObject* first, SCObject* last)
 {
   int r=1;
   if(!to.empty())
@@ -248,8 +269,15 @@ void Copy(vector<SCObject*> & from, vector <SCObject*> & to)
     for (int i=0;i<from.size();i++)
     {
         temp=from.at(i);
-        if(temp.alive==1){
-        to.push_back(temp); 
+        while(temp!=NULL)
+        {
+           if(temp.alive==1){
+           last->next=temp;
+           last=temp;
+           to.erase(to.begin(),to.end());
+           to.push_back(first);
+           }
+           temp=temp->next;
         }
     }
     from.erase(from.begin(),from.begin()+from.size());
@@ -259,9 +287,9 @@ void Copy(vector<SCObject*> & from, vector <SCObject*> & to)
 void CallCopy()
 {
   if(heap1_objects==max)
-     Copy(active, inactive);
+     Copy(active, inactive,heap2_first,heap2_last);
   if(heap2_objects==max)
-     Copy(inactive, active);
+     Copy(inactive, active, heap1_first, heap1_last);
 }
   
 }
