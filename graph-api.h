@@ -52,10 +52,10 @@ class Object {
 //Define a child class of objects with an extra field to indicate if the object is alive or dead.
 //As such, i have no idea how thats decided. We could figure that out later( a system call that 
 //could give some info on the scope of the object or something)
-class SCObject:public Object 
+class SCObject:public Object
 {
   public:   
-   bool alive;
+  bool alive;
    SCObject() {
     alive=1;
    }
