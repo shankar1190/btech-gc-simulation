@@ -131,6 +131,80 @@ StopCopyUtil :: StopCopyUtil() {
   heap2_last = NULL;
 }
 
+// Creating a new root item. 
+void StopCopyUtil :: NewReference(const string& desc, int ind) {
+  int num; int max=50;
+  SCObject* first, *last;
+  if(ind==1)
+  {
+    num=heap1_objects;
+    first=heap1_first;
+    last=heap1_last;
+  }
+  if(ind==2)
+  {
+    num=heap2_objects;
+    first=heap2_first;
+    last=heap2_last;
+  }
+  if (num==max) {
+    TriggerGC();
+  }
+  
+  if (num < max) {
+    num++;
+    SCObject* obj = new SCObject(desc);
+    if(first==NULL)
+    {
+      first=obj;
+    }
+    if(last==NULL)
+    {
+      last=obj;
+    }
+    else
+    {
+    last->next = obj;
+    obj = last;
+    }
+    if(ind==1)
+    {
+      heap1_first=first;
+      heap1_last=last;
+      active.erase(active.begin(),active.end());
+      active.insert(heap1_first);
+    }
+    if(ind==2)
+    {
+      heap2_first=first;
+      heap2_last=last;
+      inactive.erase(inactive.begin(),inactive.end());
+      inactive.insert(heap2_first);
+    }
+
+  } else {
+    cout << "Error! Unable to allocate memory!\n";
+  }
+}
+
+// New object that would be pointed to by an existing pointer.
+void StopCopyUtil :: New(const string& desc, SCObject* parent, int ind) {
+  if (num == max) {
+    TriggerGC();
+  }
+
+  if (num < max) {
+    num++;
+    SCObject* obj = new SCObject(desc);
+    parent->child = obj;
+    last->next = obj;
+    obj = last;
+  } else {
+    cout << "Error! Unable to allocate memory!\n";
+  }
+}
+
+
 // delete all elements from a linked list.
 // TODO: Figure out a more elegant way to do this. Maybe we have to change the
 // implementation of Stop-Copy completely.
