@@ -163,7 +163,9 @@ void Copy(vector<SCObject*> & from, vector <SCObject*> & to)
     for (int i=0;i<from.size();i++)
     {
         temp=from.at(i);
-        to.push_back(temp);      
+        if(temp.alive==1){
+        to.push_back(temp); 
+        }
     }
     from.erase(from.begin(),from.begin()+from.size());
   }
