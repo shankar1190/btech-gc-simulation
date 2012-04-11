@@ -92,7 +92,7 @@ class StopCopyUtil {
   void FlushHeap(vector <SCObject*> &v);//Cant we delete the elements as they're getting copied
   //void Copy1to2();
   //void Copy2to1();
-  void Copy(vector <SCObject*> &from, vector <SCObject*> &to);
+  void Copy(vector <SCObject*> &from, vector <SCObject*> &to, SCObject* first, SCObject* last);
   //A function to call copy depending on which region is exhausted.
   void CallCopy();
   void TriggerGC();
