@@ -35,8 +35,6 @@ class Object {
   bool seen;
   Object* next;
   Object* child;
-  Object* first;
-  Object* last;
   string desc;
   Object() {
     next = NULL;
@@ -49,8 +47,6 @@ class Object {
   Object (const string& description) {
     next = NULL;
     child = NULL;
-    first = NULL;
-    last = NULL;
     desc = description;
   }
 };
@@ -71,6 +67,8 @@ class MSGraphUtil {
  public:
   MSGraphUtil(); 
   int num_objects;
+  Object* first;
+  Object* last;
   vector <Object*> roots;
   void DFSMark(Object* root);
   void Sweep(Object* current, Object* prev);
