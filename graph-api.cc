@@ -66,13 +66,24 @@ void MSGraphUtil :: NewReference(const string& desc) {
   if (num_objects == max_objects) {
     TriggerGC();
   }
-
+  
   if (num_objects < max_objects) {
     num_objects++;
     Object* obj = new Object(desc);
     roots.push_back(obj);
+    if(first==NULL)
+    {
+      first=obj;
+    }
+    if(last==NULL)
+    {
+      last=obj;
+    }
+    else
+    {
     last->next = obj;
     obj = last;
+    }
   } else {
     cout << "Error! Unable to allocate memory!\n";
   }
