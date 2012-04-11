@@ -85,10 +85,12 @@ class StopCopyUtil {
   vector <SCObject*> inactive;
   int heap1_objects;
   int heap2_objects;
-  //SCObject* heap1_first;
-  //SCObject* heap1_last;
-  //SCObject* heap2_first;
-  //SCObject* heap2_last;
+  SCObject* heap1_first;
+  SCObject* heap1_last;
+  SCObject* heap2_first;
+  SCObject* heap2_last;
+  void New(const string& desc, SCObject* parent,int ind);
+  void NewReference(const string& desc, int ind);
 
   void FlushHeap(vector <SCObject*> &v);//Cant we delete the elements as they're getting copied
   //void Copy1to2();
